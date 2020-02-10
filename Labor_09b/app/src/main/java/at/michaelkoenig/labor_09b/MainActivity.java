@@ -46,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tippCount = progress;
+                tippCount = seekBar.getProgress();
+                updateTipp(tippCount);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                //updateTipp(seekBar.getProgress());
             }
 
             @Override
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         Random rd = new Random();
 
-        while (numbers.size() <= 6) {
+        while (numbers.size() < 6) {
             numbers.add(rd.nextInt(max) + 1);
         }
 
