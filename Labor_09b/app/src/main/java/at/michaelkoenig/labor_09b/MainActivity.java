@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnGenerate;
     private TextView txtTipps;
     private TextView txtOutput;
+    private RadioGroup radGrp;
     private RadioButton radio45;
     private int tippCount;
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         btnGenerate = findViewById(R.id.btnGenerate);
         txtTipps = findViewById(R.id.txtTipps);
         txtOutput = findViewById(R.id.txtOutput);
+        radGrp = findViewById(R.id.radGrp);
         radio45 = findViewById(R.id.radio45);
 
         tippCount = seekTipps.getProgress();
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                updateTipp(seekBar.getProgress());
+                //updateTipp(seekBar.getProgress());
             }
 
             @Override
@@ -68,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBtnGenerateClick(View view) {
         StringBuilder sb = new StringBuilder();
         Log.i("lab9", generateTipp().toString());
-        for (int i = 0; i < tippCount; i++) {
+        for (int i = 0; i < tippCount+1; i++) {
             Iterator<Integer> it = generateTipp().iterator();
             while(it.hasNext()) {
                 sb.append(it.next());
@@ -85,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Set<Integer> generateTipp() {
         Set<Integer> numbers = new TreeSet<>();
-        int max = radio45.isSelected() ? 45 : 49;
+        int max = radio45.isChecked() ? 45 : 49;
+
         Random rd = new Random();
 
         while (numbers.size() <= 6) {
