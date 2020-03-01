@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -58,7 +59,10 @@ public class MainActivity extends AppCompatActivity {
                 listData);
         lstvwTodo.setAdapter(adapterTodo);
 
-        lstvwTodo.setOnItemClickListener((parent, view, position, id) -> adapterTodo.remove(adapterTodo.getItem(position)));
+        lstvwTodo.setOnItemClickListener((parent, view, position, id) -> {
+            adapterTodo.remove(adapterTodo.getItem(position));
+            this.makeToast(R.string.removed_todo);
+        });
     }
 
     @Override
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         ed.putString("TODOS", gson.toJson(listData));
         ed.apply();
-        Log.i(LOG_TAG, "saved JSON: " + listData);
+        Log.i(LOG_TAG, "onSaveInstanceState: saved JSON: " + listData);
     }
 
     public void onAddButtonClick(View view) {
@@ -76,7 +80,14 @@ public class MainActivity extends AppCompatActivity {
         if (!item.isEmpty()) {
             adapterTodo.add(item);
             txtTodo.setText("");
+            this.makeToast(R.string.added_todo);
+        } else {
+            this.makeToast(R.string.invalid_todo);
         }
+    }
+
+    private void makeToast(int txtId) {
+        Toast.makeText(this, txtId, Toast.LENGTH_SHORT).show();
     }
 
 }
