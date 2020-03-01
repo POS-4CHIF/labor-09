@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Labor_09c</string>
+    <string name="new_todo_placeholder">Enter a new TODO</string>
+    <string name="add_new_todo">Add</string>
+</resources>
