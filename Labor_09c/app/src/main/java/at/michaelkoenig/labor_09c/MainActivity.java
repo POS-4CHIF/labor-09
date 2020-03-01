@@ -56,9 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 listData);
         lstvwTodo.setAdapter(adapterTodo);
 
-        lstvwTodo.setOnItemClickListener((parent, view, position, id) -> {
+        lstvwTodo.setOnItemLongClickListener((parent, view, position, id) -> {
             adapterTodo.remove(adapterTodo.getItem(position));
             this.makeToast(R.string.removed_todo);
+            return true;
         });
     }
 
