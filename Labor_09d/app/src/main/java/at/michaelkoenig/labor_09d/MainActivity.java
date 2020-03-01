@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         lstvwTodo.setOnItemClickListener((parent, view, position, id) -> {
             adapterTodo.remove(adapterTodo.getItem(position));
-            this.makeToast(R.string.removed_todo);
+            Utils.makeToast(this, R.string.removed_todo);
         });
     }
 
@@ -86,10 +86,6 @@ public class MainActivity extends AppCompatActivity {
             adapterTodo.add(item);
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void makeToast(int txtId) {
-        Toast.makeText(this, txtId, Toast.LENGTH_SHORT).show();
     }
 
 }

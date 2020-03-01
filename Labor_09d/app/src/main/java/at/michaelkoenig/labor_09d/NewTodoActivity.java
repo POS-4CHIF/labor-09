@@ -23,19 +23,16 @@ public class NewTodoActivity extends AppCompatActivity {
     public void onAddButtonClick(View view) {
         String item = txtTodo.getText().toString();
         if (!item.isEmpty()) {
-            this.makeToast(R.string.added_todo);
+            Utils.makeToast(this, R.string.added_todo);
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(RETURN_DATA, item);
             setResult(RESULT_OK, intent);
             finish();
         } else {
-            this.makeToast(R.string.invalid_todo);
+            Utils.makeToast(this, R.string.invalid_todo);
         }
     }
 
-    private void makeToast(int txtId) {
-        Toast.makeText(this, txtId, Toast.LENGTH_SHORT).show();
-    }
 
 
 }
