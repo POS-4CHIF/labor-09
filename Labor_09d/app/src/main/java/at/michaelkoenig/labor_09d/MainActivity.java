@@ -1,26 +1,25 @@
-package at.michaelkoenig.labor_09c;
+package at.michaelkoenig.labor_09d;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import at.michaelkoenig.labor_09d.R;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapterTodo;
@@ -29,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtTodo;
     private SharedPreferences prefs;
     private final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final int REQUEST_CODE = 1234;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i(LOG_TAG, "onCreate");
 
-        prefs = getSharedPreferences("at.michaelkoenig.labor_09c", MODE_PRIVATE);
+        prefs = getSharedPreferences("at.michaelkoenig.labor_09d", MODE_PRIVATE);
 
         String json = prefs.getString("TODOS", null);
         if (json != null) {
@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         lstvwTodo = this.findViewById(R.id.lstvw_todo);
-        txtTodo = this.findViewById(R.id.txt_input);
 
         adapterTodo = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
@@ -76,14 +75,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onAddButtonClick(View view) {
-        String item = txtTodo.getText().toString();
-        if (!item.isEmpty()) {
+        Intent intent = new Intent(this, NewTodoActivity.class);
+        this.startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
+            String item = data.getStringExtra(NewTodoActivity.RETURN_DATA);
             adapterTodo.add(item);
-            txtTodo.setText("");
-            this.makeToast(R.string.added_todo);
-        } else {
-            this.makeToast(R.string.invalid_todo);
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void makeToast(int txtId) {
