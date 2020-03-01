@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -19,13 +17,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import at.michaelkoenig.labor_09d.R;
-
 public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapterTodo;
     private List<String> listData;
     private ListView lstvwTodo;
-    private EditText txtTodo;
     private SharedPreferences prefs;
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int REQUEST_CODE = 1234;
